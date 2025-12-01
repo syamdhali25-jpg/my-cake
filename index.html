@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>🎂 My Cake</title>
+<title>🎂 3D Birthday Cake</title>
 <style>
     body {
-        background: #f7d4e3;
+        background: #2f2f2f;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -13,82 +13,144 @@
         min-height: 100vh;
         margin: 0;
         font-family: Arial, sans-serif;
+        color: white;
     }
 
     h1 {
-        margin-bottom: 20px;
-        color: #b03060;
+        margin-bottom: 10px;
         font-size: 2rem;
     }
 
-    .cake {
-        width: 300px;
-        height: 200px;
-        background: #ffb6c1;
-        border-radius: 10px;
-        position: relative;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    #micMsg {
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        opacity: 0.9;
     }
 
+    /* --- 3D CAKE --- */
+    .cake {
+        width: 320px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 50% 40%, #5c3b2e, #2e1b14 70%);
+        position: relative;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    /* Cake layers */
+    .layer {
+        position: absolute;
+        width: 100%;
+        height: 60%;
+        top: 25%;
+        border-radius: 50%;
+        background: repeating-linear-gradient(
+            to bottom,
+            #4a2d21,
+            #4a2d21 12px,
+            #3c241b 12px,
+            #3c241b 24px
+        );
+    }
+
+    /* Frosting */
+    .frosting {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 55%;
+        background: #fff2e6;
+        border-radius: 50%;
+    }
+
+    /* Dripping frosting */
+    .drip {
+        position: absolute;
+        width: 60px;
+        height: 50px;
+        background: #fff2e6;
+        top: 40px;
+        border-radius: 0 0 40px 40px;
+    }
+    .drip:nth-child(1) { left: 60px; }
+    .drip:nth-child(2) { left: 140px; }
+    .drip:nth-child(3) { left: 220px; }
+
+    /* Plate */
+    .plate {
+        width: 360px;
+        height: 40px;
+        background: #d9d9d9;
+        border-radius: 50%;
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    }
+
+    /* Candles */
     .candles {
         position: absolute;
-        top: -60px;
+        top: 10px;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
         gap: 6px;
+        flex-wrap: wrap;
+        width: 260px;
+        justify-content: center;
     }
 
     .candle {
         width: 10px;
-        height: 50px;
-        background: #fff;
-        border-radius: 3px;
+        height: 45px;
+        background: #b30000;
+        border-radius: 4px;
         position: relative;
     }
 
     .flame {
-        width: 10px;
-        height: 15px;
-        background: orange;
+        width: 12px;
+        height: 16px;
+        background: radial-gradient(circle, #ffeb3b, #ff9800);
         border-radius: 50%;
         position: absolute;
-        top: -15px;
-        left: 0;
-        animation: flicker 0.2s infinite alternate;
+        top: -18px;
+        left: -1px;
+        animation: flicker 0.15s infinite alternate;
+        transform-origin: center;
     }
 
     @keyframes flicker {
         from { transform: scale(1); opacity: 1; }
-        to { transform: scale(1.2); opacity: 0.8; }
-    }
-
-    button {
-        margin-top: 25px;
-        padding: 12px 20px;
-        font-size: 1rem;
-        border: none;
-        border-radius: 8px;
-        background: #ff69b4;
-        color: white;
-        cursor: pointer;
+        to { transform: scale(1.25); opacity: 0.85; }
     }
 </style>
 </head>
 <body>
 
 <h1>🎉 Happy 19 Candles Cake 🎂</h1>
+<div id="micMsg">🎤 Blow on your microphone to blow out the candles!</div>
 
 <div class="cake">
+    <div class="plate"></div>
+
+    <div class="frosting"></div>
+
+    <div class="layer"></div>
+
+    <!-- Drips -->
+    <div class="drip"></div>
+    <div class="drip"></div>
+    <div class="drip"></div>
+
     <div class="candles" id="candleContainer"></div>
 </div>
-
-<button onclick="blowCandles()">Blow Out Candles</button>
 
 <script>
 // Create 19 candles
 const container = document.getElementById("candleContainer");
-
 for (let i = 0; i < 19; i++) {
     const candle = document.createElement("div");
     candle.className = "candle";
@@ -100,12 +162,46 @@ for (let i = 0; i < 19; i++) {
     container.appendChild(candle);
 }
 
-function blowCandles() {
-    document.querySelectorAll(".flame").forEach(f => {
-        f.style.display = "none";
-    });
-    alert("✨ You blew out the candles!");
+// --- Microphone Blow Detection ---
+async function listenForBlow() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const audioContext = new AudioContext();
+        const mic = audioContext.createMediaStreamSource(stream);
+        const analyser = audioContext.createAnalyser();
+
+        analyser.fftSize = 256;
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+        mic.connect(analyser);
+
+        function detectBlow() {
+            analyser.getByteFrequencyData(dataArray);
+            let volume = dataArray.reduce((a,b) => a + b) / dataArray.length;
+
+            // Threshold for blowing
+            if (volume > 60) {
+                blowCandles();
+            }
+
+            requestAnimationFrame(detectBlow);
+        }
+
+        detectBlow();
+
+    } catch (err) {
+        document.getElementById("micMsg").innerText =
+            "⚠️ Microphone permission needed to detect blowing.";
+    }
 }
+
+function blowCandles() {
+    document.querySelectorAll(".flame").forEach(f => f.style.display = "none");
+    document.getElementById("micMsg").innerText = "✨ Candles blown out!";
+}
+
+// Start listening immediately
+listenForBlow();
 </script>
 
 </body>
