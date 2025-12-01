@@ -7,203 +7,135 @@
 <style>
 body {
   background-color: #333;
+  color: white;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 40px;
 }
 
+/* ---------------- CAKE WRAPPER ---------------- */
+.cake-wrapper {
+    transform: scale(1.1);
+    margin-top: 20px;
+    position: relative;
+}
+
+/* ---------------- CAKE CONTAINER ---------------- */
 .cake {
-  position: absolute;
-  width: 250px;
-  height: 200px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    width: 300px;
+    height: 260px;
+    position: relative;
+    margin: auto;
 }
 
-/* Plate */
+/* ---------------- PLATE ---------------- */
 .plate {
-  width: 270px;
-  height: 110px;
-  position: absolute;
-  bottom: -10px;
-  left: -10px;
-  background-color: #ccc;
-  border-radius: 50%;
-  box-shadow: 0 2px 0 #b3b3b3, 0 4px 0 #b3b3b3, 0 5px 40px rgba(0, 0, 0, 0.5);
+    width: 360px;
+    height: 80px;
+    background: #d8d8d8;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -55px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 25px 40px rgba(0,0,0,0.45);
 }
 
-.cake > * {
-  position: absolute;
+/* ---------------- CAKE BODY ---------------- */
+.cake-body {
+    width: 100%;
+    height: 180px;
+    background: #3a2417;
+    border-radius: 50% / 30%;
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+    box-shadow: inset 0 -10px 25px rgba(0,0,0,0.5);
 }
 
-/* CAKE LAYERS */
-.layer {
-  width: 250px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: #553c13;
-  box-shadow: 
-    0 2px 0px #6a4b18,
-    0 4px 0px #33240b,
-    0 6px 0px #32230b,
-    0 8px 0px #31230b,
-    0 10px 0px #30220b,
-    0 12px 0px #2f220b,
-    0 14px 0px #2f210a,
-    0 16px 0px #2e200a,
-    0 18px 0px #2d200a,
-    0 20px 0px #2c1f0a,
-    0 22px 0px #2b1f0a,
-    0 24px 0px #2a1e09,
-    0 26px 0px #2a1d09,
-    0 28px 0px #291d09,
-    0 30px 0px #281c09;
+/* Chocolate rings */
+.cake-body::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: 170px;
+    background: repeating-linear-gradient(
+        to bottom,
+        #4e3323,
+        #4e3323 16px,
+        #3b2518 16px,
+        #3b2518 32px
+    );
+    border-radius: 50% / 30%;
 }
 
-.layer-top {
-  top: 0;
+/* ---------------- FROSTING ---------------- */
+.frosting-top {
+    position: absolute;
+    top: -35px;
+    width: 100%;
+    height: 95px;
+    background: #fff5e9;
+    border-radius: 50% / 45%;
+    box-shadow: inset 0 5px 10px rgba(0,0,0,0.15);
 }
 
-.layer-middle {
-  top: 33px;
-}
-
-.layer-bottom {
-  top: 66px;
-}
-
-/* ICING */
-.icing {
-  top: 2px;
-  left: 5px;
-  width: 240px;
-  height: 90px;
-  background-color: #f0e4d0;
-  border-radius: 50%;
-}
-
-.icing:before {
-  content: "";
-  position: absolute;
-  top: 4px;
-  right: 5px;
-  bottom: 6px;
-  left: 5px;
-  background-color: #f4ebdc;
-  box-shadow: 0 0 4px #f6efe3, 0 0 4px #f6efe3, 0 0 4px #f6efe3;
-  border-radius: 50%;
-  z-index: 1;
-}
-
-/* DRIPS */
+/* ---------------- DRIPS ---------------- */
 .drip {
-  width: 50px;
-  height: 60px;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  background-color: #f0e4d0;
+    position: absolute;
+    background: #fff5e9;
+    width: 70px;
+    height: 80px;
+    border-radius: 50px;
+    top: 50px;
 }
 
-.drip1 {
-  top: 53px;
-  left: 5px;
-  transform: skewY(15deg);
-  height: 48px;
-  width: 40px;
+.drip:nth-of-type(1) { left: 25px; }
+.drip:nth-of-type(2) { left: 115px; }
+.drip:nth-of-type(3) { left: 205px; }
+
+/* ---------------- CANDLES ---------------- */
+.candles {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    z-index: 999;
 }
 
-.drip2 {
-  top: 69px;
-  left: 181px;
-  transform: skewY(-15deg);
-}
-
-.drip3 {
-  top: 54px;
-  left: 90px;
-  width: 80px;
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
-}
-
+/* Candle body */
 .candle {
-  background-color: #7B020B;
-  width: 12px;
-  height: 35px;
-  border-radius: 6px/3px;
-  top: -20px;
-  left: 50%;
-  margin-left: -8px;
-  z-index: 10;
+    width: 10px;
+    height: 55px;
+    background: #b30000;
+    border-radius: 4px;
+    position: relative;
 }
 
-.candle:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 12px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #ad030f;
-}
-
-.candle.out .flame {
-  display: none;
-}
-
+/* Candle flame */
 .flame {
-  position: absolute;
-  background-color: orange;
-  width: 10px;
-  height: 25px;
-  border-radius: 8px 8px 8px 8px / 20px 20px 8px 8px;
-  top: -34px;
-  left: 50%;
-  margin-left: -7.5px;
-  z-index: 10;
-  box-shadow: 0 0 10px rgba(255,165,0,0.5),
-               0 0 20px rgba(255,165,0,0.5),
-               0 0 60px rgba(255,165,0,0.5),
-               0 0 80px rgba(255,165,0,0.5);
-  transform-origin: 50% 90%;
-  animation: flicker 1s ease-in-out alternate infinite;
+    width: 12px;
+    height: 18px;
+    background: radial-gradient(circle, #ffe066, #ff8c00);
+    border-radius: 50%;
+    position: absolute;
+    top: -23px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: flicker .15s infinite alternate;
+    box-shadow: 0 0 20px rgba(255,165,0,.7);
 }
 
 @keyframes flicker {
-  0% {
-    transform: skewX(5deg);
-    box-shadow: 0 0 10px rgba(255,165,0,0.2),
-                 0 0 20px rgba(255,165,0,0.2),
-                 0 0 60px rgba(255,165,0,0.2),
-                 0 0 80px rgba(255,165,0,0.2);
-  }
-  25% {
-    transform: skewX(-5deg);
-    box-shadow: 0 0 10px rgba(255,165,0,0.5),
-                 0 0 20px rgba(255,165,0,0.5),
-                 0 0 60px rgba(255,165,0,0.5),
-                 0 0 80px rgba(255,165,0,0.5);
-  }
-  50% {
-    transform: skewX(10deg);
-    box-shadow: 0 0 10px rgba(255,165,0,0.3),
-                 0 0 20px rgba(255,165,0,0.3),
-                 0 0 60px rgba(255,165,0,0.3),
-                 0 0 80px rgba(255,165,0,0.3);
-  }
-  75% {
-    transform: skewX(-10deg);
-    box-shadow: 0 0 10px rgba(255,165,0,0.4),
-                 0 0 20px rgba(255,165,0,0.4),
-                 0 0 60px rgba(255,165,0,0.4),
-                 0 0 80px rgba(255,165,0,0.4);
-  }
-  100% {
-    transform: skewX(5deg);
-    box-shadow: 0 0 10px rgba(255,165,0,0.5),
-                 0 0 20px rgba(255,165,0,0.5),
-                 0 0 60px rgba(255,165,0,0.5),
-                 0 0 80px rgba(255,165,0,0.5);
-  }
+  from { transform: translateX(-50%) scale(1); opacity: 1; }
+  to   { transform: translateX(-50%) scale(1.22); opacity: .85; }
 }
 </style>
 </head>
@@ -213,6 +145,7 @@ body {
 <h1>🎉 Happy 19th Birthday Tanisha Mirza 🎂</h1>
 <div id="micMsg">🎙️ Blow on your microphone to blow out the candles!</div>
 
+<!-- ---------------- CAKE STRUCTURE ---------------- -->
 <div class="cake-wrapper">
     <div class="cake">
 
@@ -231,9 +164,8 @@ body {
 </div>
 
 <script>
-/* Create 19 candles */
+/* ---------------- CREATE 19 CANDLES ---------------- */
 const container = document.getElementById("candleContainer");
-
 for (let i = 0; i < 19; i++) {
     const candle = document.createElement("div");
     candle.className = "candle";
@@ -245,7 +177,7 @@ for (let i = 0; i < 19; i++) {
     container.appendChild(candle);
 }
 
-/* Microphone blow detection */
+/* ---------------- MICROPHONE BLOW DETECTION ---------------- */
 async function listenForBlow() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
