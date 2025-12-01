@@ -9,38 +9,16 @@ body {
   background-color: #333;
 }
 
-.candle-count-display {
-  text-align: center;
-  margin-top: 150px;
-  margin-bottom: 20px;
-  font-family: 'Arial', sans-serif;
-  font-size: 20px;
-  color: #6A4B18;
-  background-color: #F0E4D0;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  border: 2px solid #553C13;
-}
-
-.candle-count-display span {
-  font-weight: bold;
-  color: #AD030F;
-}
-
 .cake {
   position: absolute;
   width: 250px;
   height: 200px;
   top: 50%;
   left: 50%;
-  margin-top: -70px;
-  margin-left: -125px;
+  transform: translate(-50%, -50%);
 }
 
+/* Plate */
 .plate {
   width: 270px;
   height: 110px;
@@ -56,30 +34,49 @@ body {
   position: absolute;
 }
 
+/* CAKE LAYERS */
 .layer {
-  position: absolute;
-  display: block;
   width: 250px;
   height: 100px;
   border-radius: 50%;
   background-color: #553c13;
-  box-shadow: 0 2px 0px #6a4b18, 0 4px 0px #33240b, 0 6px 0px #32230b,
-              0 8px 0px #31230b, 0 10px 0px #30220b, 0 12px 0px #2f220b,
-              0 14px 0px #2f210a, 0 16px 0px #2e200a, 0 18px 0px #2d200a,
-              0 20px 0px #2c1f0a, 0 22px 0px #2b1f0a, 0 24px 0px #2a1e09,
-              0 26px 0px #2a1d09, 0 28px 0px #291d09, 0 30px 0px #281c09;
+  box-shadow: 
+    0 2px 0px #6a4b18,
+    0 4px 0px #33240b,
+    0 6px 0px #32230b,
+    0 8px 0px #31230b,
+    0 10px 0px #30220b,
+    0 12px 0px #2f220b,
+    0 14px 0px #2f210a,
+    0 16px 0px #2e200a,
+    0 18px 0px #2d200a,
+    0 20px 0px #2c1f0a,
+    0 22px 0px #2b1f0a,
+    0 24px 0px #2a1e09,
+    0 26px 0px #2a1d09,
+    0 28px 0px #291d09,
+    0 30px 0px #281c09;
 }
 
-.layer-top { top: 0px; }
-.layer-middle { top: 33px; }
-.layer-bottom { top: 66px; }
+.layer-top {
+  top: 0;
+}
 
+.layer-middle {
+  top: 33px;
+}
+
+.layer-bottom {
+  top: 66px;
+}
+
+/* ICING */
 .icing {
   top: 2px;
   left: 5px;
-  background-color: #f0e4d0;
   width: 240px;
   height: 90px;
+  background-color: #f0e4d0;
   border-radius: 50%;
 }
 
@@ -96,8 +93,8 @@ body {
   z-index: 1;
 }
 
+/* DRIPS */
 .drip {
-  display: block;
   width: 50px;
   height: 60px;
   border-bottom-left-radius: 25px;
