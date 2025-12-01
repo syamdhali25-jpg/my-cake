@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>🎂 My Cake</title>
+<style>
+    body {
+        background: #f7d4e3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        color: #b03060;
+        font-size: 2rem;
+    }
+
+    .cake {
+        width: 300px;
+        height: 200px;
+        background: #ffb6c1;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .candles {
+        position: absolute;
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 6px;
+    }
+
+    .candle {
+        width: 10px;
+        height: 50px;
+        background: #fff;
+        border-radius: 3px;
+        position: relative;
+    }
+
+    .flame {
+        width: 10px;
+        height: 15px;
+        background: orange;
+        border-radius: 50%;
+        position: absolute;
+        top: -15px;
+        left: 0;
+        animation: flicker 0.2s infinite alternate;
+    }
+
+    @keyframes flicker {
+        from { transform: scale(1); opacity: 1; }
+        to { transform: scale(1.2); opacity: 0.8; }
+    }
+
+    button {
+        margin-top: 25px;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        background: #ff69b4;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<h1>🎉 Happy 19 Candles Cake 🎂</h1>
+
+<div class="cake">
+    <div class="candles" id="candleContainer"></div>
+</div>
+
+<button onclick="blowCandles()">Blow Out Candles</button>
+
+<script>
+// Create 19 candles
+const container = document.getElementById("candleContainer");
+
+for (let i = 0; i < 19; i++) {
+    const candle = document.createElement("div");
+    candle.className = "candle";
+
+    const flame = document.createElement("div");
+    flame.className = "flame";
+
+    candle.appendChild(flame);
+    container.appendChild(candle);
+}
+
+function blowCandles() {
+    document.querySelectorAll(".flame").forEach(f => {
+        f.style.display = "none";
+    });
+    alert("✨ You blew out the candles!");
+}
+</script>
+
+</body>
+</html>
