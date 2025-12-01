@@ -21,22 +21,20 @@
     h1 {
         font-size: 2.8rem;
         margin-top: 5px;
-        font-weight: 700;
     }
 
     #micMsg {
         margin-bottom: 25px;
         font-size: 1.25rem;
-        opacity: 0.9;
     }
 
-    /* === CAKE WRAPPER (10% LARGER) === */
+    /* Cake Wrapper */
     .cake-wrapper {
         transform: scale(1.20);
         margin-top: 10px;
     }
 
-    /* === CAKE === */
+    /* Cake container */
     .cake {
         width: 360px;
         height: 220px;
@@ -86,7 +84,7 @@
         border-radius: 50% / 35%;
     }
 
-    /* Frosting Top */
+    /* Frosting top */
     .frosting-top {
         position: absolute;
         top: -12px;
@@ -94,11 +92,9 @@
         height: 75px;
         background: #fff5e9;
         border-radius: 50% / 40%;
-        box-shadow: inset 0 -5px 10px rgba(0,0,0,0.15);
         z-index: 50;
     }
 
-    /* Drips */
     .drip {
         position: absolute;
         background: #fff5e9;
@@ -121,5 +117,110 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 1
+        gap: 10px;
+        z-index: 999;
+    }
 
+    .candle {
+        width: 12px;
+        height: 58px;
+        background: #b30000;
+        border-radius: 4px;
+        position: relative;
+    }
+
+    .flame {
+        width: 12px;
+        height: 18px;
+        background: radial-gradient(circle, #ffe066, #ff8c00);
+        border-radius: 50%;
+        position: absolute;
+        top: -22px;
+        animation: flicker 0.13s infinite alternate;
+    }
+
+    @keyframes flicker {
+        from { transform: scale(1); opacity: 1; }
+        to   { transform: scale(1.25); opacity: 0.85; }
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎉 Happy 19th Birthday Tanisha Mirza 🎂</h1>
+<div id="micMsg">🎙️ Blow on your microphone to blow out the candles!</div>
+
+<div class="cake-wrapper">
+    <div class="cake">
+
+        <div class="plate"></div>
+
+        <div class="cake-body">
+            <div class="frosting-top"></div>
+            <div class="drip"></div>
+            <div class="drip"></div>
+            <div class="drip"></div>
+        </div>
+
+        <div class="candles" id="candleContainer"></div>
+
+    </div>
+</div>
+
+<script>
+/* Create 19 candles */
+const container = document.getElementById("candleContainer");
+
+for (let i = 0; i < 19; i++) {
+    const candle = document.createElement("div");
+    candle.className = "candle";
+
+    const flame = document.createElement("div");
+    flame.className = "flame";
+
+    candle.appendChild(flame);
+    container.appendChild(candle);
+}
+
+/* Microphone blow detection */
+async function listenForBlow() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const audioContext = new AudioContext();
+        const mic = audioContext.createMediaStreamSource(stream);
+        const analyser = audioContext.createAnalyser();
+
+        analyser.fftSize = 256;
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+        mic.connect(analyser);
+
+        function detectBlow() {
+            analyser.getByteFrequencyData(dataArray);
+            let volume = dataArray.reduce((a,b) => a + b) / dataArray.length;
+
+            if (volume > 92) {
+                blowCandles();
+            }
+            requestAnimationFrame(detectBlow);
+        }
+
+        detectBlow();
+    }
+    catch {
+        document.getElementById("micMsg").innerText =
+            "⚠️ Please allow microphone access to blow out candles.";
+    }
+}
+
+function blowCandles() {
+    document.querySelectorAll(".flame").forEach(f => f.style.display = "none");
+    document.getElementById("micMsg").innerText = "✨ Candles blown out!";
+}
+
+listenForBlow();
+</script>
+
+</body>
+</html>
