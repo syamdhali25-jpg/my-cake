@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>🎂 3D Birthday Cake</title>
+<title>🎂 Happy 19th Birthday Tanisha Mirza 🎉</title>
+
 <style>
     body {
-        background: #2f2f2f;
+        background: #2b2b2b;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -14,97 +15,104 @@
         margin: 0;
         font-family: Arial, sans-serif;
         color: white;
+        text-align: center;
     }
 
     h1 {
-        margin-bottom: 10px;
-        font-size: 2rem;
+        font-size: 2.4rem;
+        margin-bottom: 5px;
+        font-weight: bold;
     }
 
     #micMsg {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         font-size: 1.2rem;
-        opacity: 0.9;
+        opacity: 0.95;
     }
 
     /* --- 3D CAKE --- */
+    .cake-wrapper {
+        transform: scale(1.1); /* 10% larger */
+    }
+
     .cake {
-        width: 320px;
-        height: 180px;
+        width: 350px;
+        height: 200px;
         border-radius: 50%;
-        background: radial-gradient(circle at 50% 40%, #5c3b2e, #2e1b14 70%);
+        background: radial-gradient(circle at 50% 45%, #5c3b2e, #2d1a13 70%);
         position: relative;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.55);
     }
 
     /* Cake layers */
     .layer {
         position: absolute;
         width: 100%;
-        height: 60%;
+        height: 65%;
         top: 25%;
         border-radius: 50%;
         background: repeating-linear-gradient(
             to bottom,
-            #4a2d21,
-            #4a2d21 12px,
-            #3c241b 12px,
-            #3c241b 24px
+            #4a2e22,
+            #4a2e22 12px,
+            #362017 12px,
+            #362017 24px
         );
     }
 
-    /* Frosting */
+    /* Top frosting */
     .frosting {
         position: absolute;
         top: 0;
         width: 100%;
-        height: 55%;
-        background: #fff2e6;
+        height: 53%;
+        background: #fff0e0;
         border-radius: 50%;
+        box-shadow: inset 0 0 12px rgba(0,0,0,0.2);
     }
 
-    /* Dripping frosting */
+    /* Drips */
     .drip {
         position: absolute;
         width: 60px;
-        height: 50px;
-        background: #fff2e6;
-        top: 40px;
-        border-radius: 0 0 40px 40px;
+        height: 55px;
+        background: #fff0e0;
+        top: 45px;
+        border-radius: 0 0 50px 50px;
     }
-    .drip:nth-child(1) { left: 60px; }
-    .drip:nth-child(2) { left: 140px; }
-    .drip:nth-child(3) { left: 220px; }
+    .drip:nth-child(1) { left: 70px; }
+    .drip:nth-child(2) { left: 150px; }
+    .drip:nth-child(3) { left: 230px; }
 
     /* Plate */
     .plate {
-        width: 360px;
-        height: 40px;
-        background: #d9d9d9;
+        width: 380px;
+        height: 50px;
+        background: #cfcfcf;
         border-radius: 50%;
         position: absolute;
-        bottom: -30px;
+        bottom: -35px;
         left: 50%;
         transform: translateX(-50%);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.6);
     }
 
     /* Candles */
     .candles {
         position: absolute;
-        top: 10px;
+        top: 30px;
         left: 50%;
         transform: translateX(-50%);
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
         width: 260px;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
+        gap: 10px;
     }
 
     .candle {
-        width: 10px;
-        height: 45px;
+        width: 12px;
+        height: 48px;
         background: #b30000;
         border-radius: 4px;
         position: relative;
@@ -112,14 +120,13 @@
 
     .flame {
         width: 12px;
-        height: 16px;
-        background: radial-gradient(circle, #ffeb3b, #ff9800);
+        height: 18px;
+        background: radial-gradient(circle, #ffe066, #ff8c00);
         border-radius: 50%;
         position: absolute;
-        top: -18px;
-        left: -1px;
+        top: -20px;
+        left: 0;
         animation: flicker 0.15s infinite alternate;
-        transform-origin: center;
     }
 
     @keyframes flicker {
@@ -128,29 +135,32 @@
     }
 </style>
 </head>
+
 <body>
 
-<h1>🎉 Happy 19 Candles Cake 🎂</h1>
+<h1>🎉 Happy 19th Birthday Tanisha Mirza 🎂</h1>
 <div id="micMsg">🎤 Blow on your microphone to blow out the candles!</div>
 
-<div class="cake">
-    <div class="plate"></div>
+<div class="cake-wrapper">
+    <div class="cake">
+        <div class="plate"></div>
 
-    <div class="frosting"></div>
+        <div class="frosting"></div>
+        <div class="layer"></div>
 
-    <div class="layer"></div>
+        <!-- Frosting drips -->
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
 
-    <!-- Drips -->
-    <div class="drip"></div>
-    <div class="drip"></div>
-    <div class="drip"></div>
-
-    <div class="candles" id="candleContainer"></div>
+        <div class="candles" id="candleContainer"></div>
+    </div>
 </div>
 
 <script>
-// Create 19 candles
+// Create 19 candles naturally spaced
 const container = document.getElementById("candleContainer");
+
 for (let i = 0; i < 19; i++) {
     const candle = document.createElement("div");
     candle.className = "candle";
@@ -162,7 +172,7 @@ for (let i = 0; i < 19; i++) {
     container.appendChild(candle);
 }
 
-// --- Microphone Blow Detection ---
+/* --- Microphone Blow Detection --- */
 async function listenForBlow() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -179,19 +189,17 @@ async function listenForBlow() {
             analyser.getByteFrequencyData(dataArray);
             let volume = dataArray.reduce((a,b) => a + b) / dataArray.length;
 
-            // Threshold for blowing
             if (volume > 60) {
                 blowCandles();
             }
-
             requestAnimationFrame(detectBlow);
         }
 
         detectBlow();
-
-    } catch (err) {
+    }
+    catch {
         document.getElementById("micMsg").innerText =
-            "⚠️ Microphone permission needed to detect blowing.";
+            "⚠️ Please allow microphone access to blow out the candles.";
     }
 }
 
@@ -200,7 +208,6 @@ function blowCandles() {
     document.getElementById("micMsg").innerText = "✨ Candles blown out!";
 }
 
-// Start listening immediately
 listenForBlow();
 </script>
 
