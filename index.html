@@ -19,45 +19,47 @@
     }
 
     h1 {
-        font-size: 2.6rem;
-        margin: 10px 0;
+        font-size: 2.8rem;
+        margin-top: 5px;
+        font-weight: 700;
     }
 
     #micMsg {
         margin-bottom: 25px;
-        font-size: 1.2rem;
+        font-size: 1.25rem;
         opacity: 0.9;
     }
 
-    /* === REALISTIC CAKE (similar to your image) === */
-
+    /* === CAKE WRAPPER (10% LARGER) === */
     .cake-wrapper {
-        transform: scale(1.1);
+        transform: scale(1.20);
+        margin-top: 10px;
     }
 
+    /* === CAKE === */
     .cake {
         width: 360px;
-        height: 200px;
+        height: 220px;
         position: relative;
     }
 
     /* Plate */
     .plate {
-        width: 420px;
-        height: 60px;
-        background: #d7d7d7;
+        width: 430px;
+        height: 65px;
+        background: #d8d8d8;
         border-radius: 50%;
         position: absolute;
-        bottom: -40px;
+        bottom: -45px;
         left: 50%;
         transform: translateX(-50%);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+        box-shadow: 0 25px 45px rgba(0,0,0,0.55);
     }
 
     /* Cake body */
     .cake-body {
         width: 100%;
-        height: 140px;
+        height: 150px;
         background: #3a2417;
         border-radius: 50% / 35%;
         position: absolute;
@@ -73,7 +75,7 @@
         top: 20px;
         left: 0;
         width: 100%;
-        height: 120px;
+        height: 140px;
         background: repeating-linear-gradient(
             to bottom,
             #4e3323,
@@ -84,145 +86,40 @@
         border-radius: 50% / 35%;
     }
 
-    /* White frosting top */
+    /* Frosting Top */
     .frosting-top {
         position: absolute;
-        top: -10px;
+        top: -12px;
         width: 100%;
-        height: 70px;
+        height: 75px;
         background: #fff5e9;
         border-radius: 50% / 40%;
         box-shadow: inset 0 -5px 10px rgba(0,0,0,0.15);
+        z-index: 50;
     }
 
-    /* Drips like your image */
+    /* Drips */
     .drip {
         position: absolute;
         background: #fff5e9;
-        width: 70px;
-        height: 80px;
+        width: 78px;
+        height: 85px;
         border-radius: 40px;
-        top: 40px;
+        top: 45px;
     }
-    .drip:nth-child(1) { left: 40px; }
-    .drip:nth-child(2) { left: 140px; }
-    .drip:nth-child(3) { left: 240px; }
+    .drip:nth-of-type(1) { left: 35px; }
+    .drip:nth-of-type(2) { left: 140px; }
+    .drip:nth-of-type(3) { left: 245px; }
 
-    /* Candles container */
+    /* Candles */
     .candles {
         position: absolute;
-        top: -5px;
+        top: -8px;
         left: 50%;
         transform: translateX(-50%);
-        width: 275px;
+        width: 260px;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 8px;
-        z-index: 99;
-    }
+        gap: 1
 
-    .candle {
-        width: 12px;
-        height: 55px;
-        background: #b30000;
-        border-radius: 4px;
-        position: relative;
-    }
-
-    .flame {
-        width: 12px;
-        height: 18px;
-        background: radial-gradient(circle, #ffe066, #ff8c00);
-        border-radius: 50%;
-        position: absolute;
-        top: -22px;
-        animation: flicker 0.12s infinite alternate;
-    }
-
-    @keyframes flicker {
-        from { transform: scale(1); opacity: 1; }
-        to   { transform: scale(1.25); opacity: 0.85; }
-    }
-</style>
-</head>
-
-<body>
-
-<h1>🎉 Happy 19th Birthday Tanisha Mirza 🎂</h1>
-<div id="micMsg">🎙️ Blow on your microphone to blow out the candles!</div>
-
-<div class="cake-wrapper">
-    <div class="cake">
-
-        <div class="plate"></div>
-
-        <div class="cake-body">
-            <div class="frosting-top"></div>
-            <div class="drip"></div>
-            <div class="drip"></div>
-            <div class="drip"></div>
-        </div>
-
-        <div class="candles" id="candleContainer"></div>
-
-    </div>
-</div>
-
-<script>
-// === Create 19 candles ===
-const container = document.getElementById("candleContainer");
-
-for (let i = 0; i < 19; i++) {
-    const candle = document.createElement("div");
-    candle.className = "candle";
-
-    const flame = document.createElement("div");
-    flame.className = "flame";
-
-    candle.appendChild(flame);
-    container.appendChild(candle);
-}
-
-/* === Microphone Blow Detection (60% harder) === */
-async function listenForBlow() {
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const audioContext = new AudioContext();
-        const mic = audioContext.createMediaStreamSource(stream);
-        const analyser = audioContext.createAnalyser();
-
-        analyser.fftSize = 256;
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-        mic.connect(analyser);
-
-        function detectBlow() {
-            analyser.getByteFrequencyData(dataArray);
-            let volume = dataArray.reduce((a,b) => a + b) / dataArray.length;
-
-            // ⬆️ increased sensitivity threshold by 60%
-            if (volume > 96) {
-                blowCandles();
-            }
-            requestAnimationFrame(detectBlow);
-        }
-
-        detectBlow();
-    }
-    catch {
-        document.getElementById("micMsg").innerText =
-            "⚠️ Please allow microphone access to blow out the candles.";
-    }
-}
-
-function blowCandles() {
-    document.querySelectorAll(".flame").forEach(f => f.style.display = "none");
-    document.getElementById("micMsg").innerText = "✨ Candles blown out!";
-}
-
-listenForBlow();
-</script>
-
-</body>
-</html>
