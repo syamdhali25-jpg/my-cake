@@ -1,220 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>🎉 Happy 19th Birthday Tanisha Mirza 🎂</title>
+<meta charset="UTF-8">
+<title>Will You Be My Princess?</title>
 
 <style>
 body {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  margin-top: 40px;
+    background: pink;
+    font-family: "Comic Sans MS", Arial, sans-serif;
+    text-align: center;
+    padding-top: 120px;
 }
 
-/* ---------------- CAKE WRAPPER ---------------- */
-.cake-wrapper {
-    transform: scale(1.1);
-    margin-top: 20px;
+h1 {
+    font-size: 48px;
+    color: #b30086;
+    text-shadow: 2px 2px 4px white;
+}
+
+button {
+    font-size: 24px;
+    padding: 10px 30px;
+    margin: 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#yesBtn {
+    background-color: #ff4da6;
+    color: white;
+}
+
+#noBtn {
+    background-color: #ff99cc;
+    color: white;
     position: relative;
 }
 
-/* ---------------- CAKE CONTAINER ---------------- */
-.cake {
-    width: 300px;
-    height: 260px;
-    position: relative;
-    margin: auto;
+#thankYou {
+    font-size: 40px;
+    margin-top: 30px;
+    color: #8a0061;
+    display: none;
+    animation: pop 0.4s ease-out;
 }
 
-/* ---------------- PLATE ---------------- */
-.plate {
-    width: 360px;
-    height: 80px;
-    background: #d8d8d8;
-    border-radius: 50%;
-    position: absolute;
-    bottom: -55px;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 25px 40px rgba(0,0,0,0.45);
-}
-
-/* ---------------- CAKE BODY ---------------- */
-.cake-body {
-    width: 100%;
-    height: 180px;
-    background: #3a2417;
-    border-radius: 50% / 30%;
-    position: absolute;
-    bottom: 0;
-    overflow: hidden;
-    box-shadow: inset 0 -10px 25px rgba(0,0,0,0.5);
-}
-
-/* Chocolate rings */
-.cake-body::before {
-    content: "";
-    position: absolute;
-    top: 15px;
-    left: 0;
-    width: 100%;
-    height: 170px;
-    background: repeating-linear-gradient(
-        to bottom,
-        #4e3323,
-        #4e3323 16px,
-        #3b2518 16px,
-        #3b2518 32px
-    );
-    border-radius: 50% / 30%;
-}
-
-/* ---------------- FROSTING ---------------- */
-.frosting-top {
-    position: absolute;
-    top: -35px;
-    width: 100%;
-    height: 95px;
-    background: #fff5e9;
-    border-radius: 50% / 45%;
-    box-shadow: inset 0 5px 10px rgba(0,0,0,0.15);
-}
-
-/* ---------------- DRIPS ---------------- */
-.drip {
-    position: absolute;
-    background: #fff5e9;
-    width: 70px;
-    height: 80px;
-    border-radius: 50px;
-    top: 50px;
-}
-
-.drip:nth-of-type(1) { left: 25px; }
-.drip:nth-of-type(2) { left: 115px; }
-.drip:nth-of-type(3) { left: 205px; }
-
-/* ---------------- CANDLES ---------------- */
-.candles {
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 240px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    z-index: 999;
-}
-
-/* Candle body */
-.candle {
-    width: 10px;
-    height: 55px;
-    background: #b30000;
-    border-radius: 4px;
-    position: relative;
-}
-
-/* Candle flame */
-.flame {
-    width: 12px;
-    height: 18px;
-    background: radial-gradient(circle, #ffe066, #ff8c00);
-    border-radius: 50%;
-    position: absolute;
-    top: -23px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: flicker .15s infinite alternate;
-    box-shadow: 0 0 20px rgba(255,165,0,.7);
-}
-
-@keyframes flicker {
-  from { transform: translateX(-50%) scale(1); opacity: 1; }
-  to   { transform: translateX(-50%) scale(1.22); opacity: .85; }
+@keyframes pop {
+    0% { transform: scale(0.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎉 Happy 19th Birthday Tanisha Mirza 🎂</h1>
-<div id="micMsg">🎙️ Blow on your microphone to blow out the candles!</div>
+<h1>💖 WILL YOU BE MY PRINCESS? 👑</h1>
 
-<!-- ---------------- CAKE STRUCTURE ---------------- -->
-<div class="cake-wrapper">
-    <div class="cake">
+<button id="yesBtn">Yes</button>
+<button id="noBtn">No</button>
 
-        <div class="plate"></div>
-
-        <div class="cake-body">
-            <div class="frosting-top"></div>
-            <div class="drip"></div>
-            <div class="drip"></div>
-            <div class="drip"></div>
-        </div>
-
-        <div class="candles" id="candleContainer"></div>
-
-    </div>
-</div>
+<div id="thankYou">Yahhh thank you!! 💗👑</div>
 
 <script>
-/* ---------------- CREATE 19 CANDLES ---------------- */
-const container = document.getElementById("candleContainer");
-for (let i = 0; i < 19; i++) {
-    const candle = document.createElement("div");
-    candle.className = "candle";
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const thankYou = document.getElementById("thankYou");
 
-    const flame = document.createElement("div");
-    flame.className = "flame";
+/* When user clicks YES */
+yesBtn.onclick = () => {
+    thankYou.style.display = "block";
+};
 
-    candle.appendChild(flame);
-    container.appendChild(candle);
-}
+/* When user clicks NO */
+noBtn.onclick = () => {
+    // Move the button to a new random position OR convert to YES
+    noBtn.innerText = "Yes 😆";
+    noBtn.style.backgroundColor = "#ff4da6";
 
-/* ---------------- MICROPHONE BLOW DETECTION ---------------- */
-async function listenForBlow() {
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const audioContext = new AudioContext();
-        const mic = audioContext.createMediaStreamSource(stream);
-        const analyser = audioContext.createAnalyser();
-
-        analyser.fftSize = 256;
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-        mic.connect(analyser);
-
-        function detectBlow() {
-            analyser.getByteFrequencyData(dataArray);
-            let volume = dataArray.reduce((a,b) => a + b) / dataArray.length;
-
-            if (volume > 92) {
-                blowCandles();
-            }
-            requestAnimationFrame(detectBlow);
-        }
-
-        detectBlow();
-    }
-    catch {
-        document.getElementById("micMsg").innerText =
-            "⚠️ Please allow microphone access to blow out candles.";
-    }
-}
-
-function blowCandles() {
-    document.querySelectorAll(".flame").forEach(f => f.style.display = "none");
-    document.getElementById("micMsg").innerText = "✨ Candles blown out!";
-}
-
-listenForBlow();
+    noBtn.onclick = () => {
+        thankYou.style.display = "block";
+    };
+};
 </script>
 
 </body>
 </html>
+
